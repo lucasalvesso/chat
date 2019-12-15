@@ -1,0 +1,19 @@
+#chat{
+    min-height: 350px;
+    height: 350px;
+    overflow: auto;
+    background-color: #f8ffff;
+    border:1px solid #adadad;
+    margin-bottom: 10px;
+}
+
+button{
+    float:right;
+    margin-top: 10px;
+}
+
+.msg{
+    padding-left: 25px;
+    background-color: #fffeea;
+    margin-left: 160px;
+}
