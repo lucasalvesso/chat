@@ -8,7 +8,6 @@ $pass = 'banco';
 
 try{
     $db = new PDO("mysql:host=$host;dbname=$base", $user, $pass);
-//    var_dump();
 
 }catch (PDOException $e){
     echo $e->getMessage();

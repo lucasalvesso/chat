@@ -1,4 +1,8 @@
-<?php session_start(); $_SESSION['user'] = 'Lucas';?>
+<?php include 'config/getUser.php';
+    $user = new GetUser();
+    $user = $user->getSessionUser();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,30 +12,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="style/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/chat.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-2">
-                </div>
-                <div class="col-8">
-                    <h2>Hello, Lucas</h2>
-                    <div id="chat" >
-                    </div>
-                    <form method="POST">
-                        <textarea class="form-control" rows="5" name="text" id="text"></textarea>
-                    </form>
-                    <button class="btn btn-primary">Send Message</button>
-                </div>
-                <div class="col-2">
-                </div>
-            </div>
+        <div>
+            <header>
+                <h1>WeChat</h1>
+            </header>
         </div>
-        <div id="test"></div>
-
+        <?php include 'chat.php'; ?>
     </body>
 </html>
 
@@ -49,8 +40,9 @@
 
     jQuery("form").submit(function(){
         var message = jQuery("textarea").val();
+        var user = "<?php echo $user ?>";
 
-        jQuery.post('handlers/messages.php?action=sendMessage&message='+message+'&user=Lucas', function(response){
+        jQuery.post('handlers/messages.php?action=sendMessage&message='+message+'&user='+user, function(response){
             loadChat();
 
             if(response == 1){
@@ -59,7 +51,7 @@
         });
         return false;
     })
-    
+
     function loadChat() {
         jQuery.post('handlers/messages.php?action=getMessages', function(response){
             jQuery("#chat").html(response);
